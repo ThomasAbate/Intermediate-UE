@@ -174,6 +174,11 @@ ALyraPlayerController* ALyraCharacter::GetLyraPlayerController() const
 	return CastChecked<ALyraPlayerController>(Controller, ECastCheckedType::NullAllowed);
 }
 
+float ALyraCharacter::GetMoveSpeed() const
+{
+	return HealthComponent ? HealthComponent->GetMoveSpeed() : 0.0f;
+}
+
 ALyraPlayerState* ALyraCharacter::GetLyraPlayerState() const
 {
 	return CastChecked<ALyraPlayerState>(GetPlayerState(), ECastCheckedType::NullAllowed);

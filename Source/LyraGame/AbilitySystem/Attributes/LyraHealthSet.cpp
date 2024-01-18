@@ -21,6 +21,7 @@ UE_DEFINE_GAMEPLAY_TAG(TAG_Lyra_Damage_Message, "Lyra.Damage.Message");
 ULyraHealthSet::ULyraHealthSet()
 	: Health(100.0f)
 	, MaxHealth(100.0f)
+	, MoveSpeed(600.0f)
 {
 	bOutOfHealth = false;
 }
@@ -31,6 +32,7 @@ void ULyraHealthSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 	DOREPLIFETIME_CONDITION_NOTIFY(ULyraHealthSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(ULyraHealthSet, MaxHealth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(ULyraHealthSet, MoveSpeed, COND_None, REPNOTIFY_Always);
 }
 
 void ULyraHealthSet::OnRep_Health(const FGameplayAttributeData& OldValue)
@@ -41,6 +43,11 @@ void ULyraHealthSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 void ULyraHealthSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(ULyraHealthSet, MaxHealth, OldValue);
+}
+
+void ULyraHealthSet::OnRep_MoveSpeed(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(ULyraHealthSet, MoveSpeed, OldValue);
 }
 
 bool ULyraHealthSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData &Data)
@@ -128,6 +135,11 @@ void ULyraHealthSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackD
 	{
 		// Clamp and fall into out of health handling below
 		SetHealth(FMath::Clamp(GetHealth(), MinimumHealth, GetMaxHealth()));
+	}
+	else if (Data.EvaluatedData.Attribute == GetMoveSpeedAttribute())
+	{
+		//change la vitesse
+		SetMoveSpeed(FMath::Clamp(GetMoveSpeed(), 0.0f, 1200.0f));
 	}
 
 	if ((GetHealth() <= 0.0f) && !bOutOfHealth)

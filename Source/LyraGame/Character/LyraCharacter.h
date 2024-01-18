@@ -104,6 +104,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Character")
 	ALyraPlayerController* GetLyraPlayerController() const;
 
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Lyra|Character")
+		float GetMoveSpeed() const;
+
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Character")
 	ALyraPlayerState* GetLyraPlayerState() const;
 

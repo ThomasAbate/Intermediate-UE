@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
+#include "LyraCharacter.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(LyraCharacterMovementComponent)
 
@@ -126,6 +127,10 @@ float ULyraCharacterMovementComponent::GetMaxSpeed() const
 			return 0;
 		}
 	}
+
+	const ALyraCharacter* PlayerCharacter = Cast<ALyraCharacter>(GetOwner());
+
+	float MaxSpeed = PlayerCharacter->GetMoveSpeed();
 
 	return Super::GetMaxSpeed();
 }

@@ -56,9 +56,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Health")
 	void InitializeWithAbilitySystem(ULyraAbilitySystemComponent* InASC);
 
+	// Ajuster les Caluer du mouvement
+	UFUNCTION(BlueprintCallable, Category = "Lyra|Movement")
+	void UninitializeFromAbilitySystem();
+
 	// Uninitialize the component, clearing any references to the ability system.
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Health")
-	void UninitializeFromAbilitySystem();
+	float GetMoveSpeed() const;
 
 	// Returns the current health value.
 	UFUNCTION(BlueprintCallable, Category = "Lyra|Health")

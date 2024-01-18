@@ -103,6 +103,11 @@ void ULyraHealthComponent::UninitializeFromAbilitySystem()
 	AbilitySystemComponent = nullptr;
 }
 
+float ULyraHealthComponent::GetMoveSpeed() const
+{
+	return (HealthSet ? HealthSet->GetMoveSpeed() : 0.0f);
+}
+
 void ULyraHealthComponent::ClearGameplayTags()
 {
 	if (AbilitySystemComponent)

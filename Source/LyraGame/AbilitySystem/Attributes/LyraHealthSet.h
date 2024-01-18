@@ -39,9 +39,13 @@ public:
 	ATTRIBUTE_ACCESSORS(ULyraHealthSet, MaxHealth);
 	ATTRIBUTE_ACCESSORS(ULyraHealthSet, Healing);
 	ATTRIBUTE_ACCESSORS(ULyraHealthSet, Damage);
+	ATTRIBUTE_ACCESSORS(ULyraHealthSet, MoveSpeed);
+	
 
 	// Delegate to broadcast when the health attribute reaches zero.
 	mutable FLyraAttributeEvent OnOutOfHealth;
+
+
 
 protected:
 
@@ -50,6 +54,9 @@ protected:
 
 	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
+
+	UFUNCTION()
+	void OnRep_MoveSpeed(const FGameplayAttributeData& OldValue);
 
 	virtual bool PreGameplayEffectExecute(FGameplayEffectModCallbackData& Data) override;
 	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
@@ -69,6 +76,11 @@ private:
 	// The current max health attribute.  Max health is an attribute since gameplay effects can modify it.
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Lyra|Health", Meta = (AllowPrivateAccess = true))
 	FGameplayAttributeData MaxHealth;
+
+	// La vitesse max
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MoveSpeed, Category = "Lyra|Attribute")
+	FGameplayAttributeData MoveSpeed;
+
 
 	// Used to track when the health reaches 0.
 	bool bOutOfHealth;
