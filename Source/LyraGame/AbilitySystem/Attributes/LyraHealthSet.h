@@ -45,6 +45,17 @@ public:
 	// Delegate to broadcast when the health attribute reaches zero.
 	mutable FLyraAttributeEvent OnOutOfHealth;
 
+	// The current health attribute.  The health will be capped by the max health attribute.  Health is hidden from modifiers so only executions can modify it.
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Lyra|Health", Meta = (HideFromModifiers, AllowPrivateAccess = true))
+		FGameplayAttributeData Health;
+
+	// The current max health attribute.  Max health is an attribute since gameplay effects can modify it.
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Lyra|Health", Meta = (AllowPrivateAccess = true))
+		FGameplayAttributeData MaxHealth;
+
+	// La vitesse max
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MoveSpeed, Category = "Lyra|Attribute")
+		FGameplayAttributeData MoveSpeed;
 
 
 protected:
@@ -69,18 +80,7 @@ protected:
 
 private:
 
-	// The current health attribute.  The health will be capped by the max health attribute.  Health is hidden from modifiers so only executions can modify it.
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Lyra|Health", Meta = (HideFromModifiers, AllowPrivateAccess = true))
-	FGameplayAttributeData Health;
-
-	// The current max health attribute.  Max health is an attribute since gameplay effects can modify it.
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Lyra|Health", Meta = (AllowPrivateAccess = true))
-	FGameplayAttributeData MaxHealth;
-
-	// La vitesse max
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MoveSpeed, Category = "Lyra|Attribute")
-	FGameplayAttributeData MoveSpeed;
-
+	
 
 	// Used to track when the health reaches 0.
 	bool bOutOfHealth;
